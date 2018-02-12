@@ -11,10 +11,12 @@ const int alpha_slider_max = 100;
 int alpha_slider;
 double alpha;
 double beta;
+bool altAccepted = false;
 String window_name = "My First Video";
 VideoCapture vCap_Original("barriers.avi");
 Mat frame;
 Mat newFrame;
+Mat alteredFrame;
 
 
 
@@ -22,8 +24,14 @@ void on_trackbar()
 {
 	alpha = (double)(alpha_slider + alpha_slider) / alpha_slider_max;
 	beta = (1.0 - alpha);
-	
-	frame.convertTo(newFrame, -1, alpha, beta);
+
+	if (altAccepted == false) {
+		frame.convertTo(newFrame, -1, alpha, beta);
+	}
+	else {
+		frame.convertTo(alteredFrame, -1, alpha, beta);
+	}
+
 }
 
 
@@ -45,20 +53,21 @@ int main(int argc, char argv[])
 
 	namedWindow(window_name, WINDOW_AUTOSIZE); //create a window
 
-	// Create Trackbars
+											   // Create Trackbars
 	char TrackbarName[50];
 	sprintf_s(TrackbarName, "Alpha x %d", alpha_slider_max);
 
 	createTrackbar(TrackbarName, window_name, &alpha_slider, alpha_slider_max);
 
+
 	while (true)
 	{
 		bool bSuccess = vCap_Original.read(frame); // read a new frame from video 
 
-		// Adjust the brightness of the video using trackbar.
-		on_trackbar();
 
-		//Breaking the while loop at the end of the video
+
+
+												   //Breaking the while loop at the end of the video
 		if (bSuccess == false)
 		{
 			cout << "Found the end of the video" << endl;
@@ -67,15 +76,38 @@ int main(int argc, char argv[])
 			//break;
 		}
 
-		//show the frame in the created window
-		imshow(window_name, frame);
-		imshow("new frame", newFrame);
-		
-		//wait for for 10 ms until any key is pressed.  
+
+		if (altAccepted == false) {
+			// Adjust the brightness of the video using trackbar.
+			on_trackbar();
+
+			//show the frame in the created window
+			imshow(window_name, frame);
+			imshow("new frame", newFrame);
+		}
+
+		if (altAccepted == true) {
+			// Adjust the brightness of the video using trackbar.
+			on_trackbar();
+
+			newFrame.copyTo(frame);
+
+
+			destroyWindow("new frame");
+
+			imshow(window_name, frame);
+			continue;
+		}
+
+		if (waitKey(1) == 13) {
+			altAccepted = true;
+			cout << "Change to original accepted.";
+		}
+
+
+		//wait for for 1 ms until any key is pressed.  
 		//If the 'Esc' key is pressed, break the while loop.
-		//If the any other key is pressed, continue the loop 
-		//If any key is not pressed withing 10 ms, continue the loop
-		if (waitKey(10) == 27)
+		if (waitKey(1) == 27)
 		{
 			cout << "Esc key is pressed by user. Stoppig the video" << endl;
 			break;
