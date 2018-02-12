@@ -88,6 +88,7 @@ int main(int argc, char argv[])
 			on_trackbar();
 
 			destroyWindow("new frame");
+			
 
 			imshow(window_name, frame);
 		}
@@ -96,6 +97,7 @@ int main(int argc, char argv[])
 		if (waitKey(1) == 13) {
 			altAccepted = true;
 			cout << "Change to original accepted.";
+			destroyWindow(window_name);
 		}
 
 
