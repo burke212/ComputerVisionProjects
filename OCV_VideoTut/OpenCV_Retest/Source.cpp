@@ -29,9 +29,8 @@ void on_trackbar()
 		frame.convertTo(newFrame, -1, alpha, beta);
 	}
 	else {
-		frame.convertTo(alteredFrame, -1, alpha, beta);
+		frame.convertTo(frame, -1, alpha, beta);
 	}
-
 }
 
 
@@ -64,20 +63,17 @@ int main(int argc, char argv[])
 	{
 		bool bSuccess = vCap_Original.read(frame); // read a new frame from video 
 
-
-
-
-												   //Breaking the while loop at the end of the video
+		// Breaking the while loop at the end of the video
 		if (bSuccess == false)
 		{
 			cout << "Found the end of the video" << endl;
 			vCap_Original.set(CAP_PROP_POS_AVI_RATIO, 0);// Loops video 
 			continue;
-			//break;
 		}
 
 
-		if (altAccepted == false) {
+		if (altAccepted == false) 
+		{
 			// Adjust the brightness of the video using trackbar.
 			on_trackbar();
 
@@ -86,19 +82,17 @@ int main(int argc, char argv[])
 			imshow("new frame", newFrame);
 		}
 
-		if (altAccepted == true) {
+		if (altAccepted == true) 
+		{
 			// Adjust the brightness of the video using trackbar.
 			on_trackbar();
-
-			newFrame.copyTo(frame);
-
 
 			destroyWindow("new frame");
 
 			imshow(window_name, frame);
-			continue;
 		}
 
+		// Check if 'Enter' is pressed.
 		if (waitKey(1) == 13) {
 			altAccepted = true;
 			cout << "Change to original accepted.";
