@@ -8,7 +8,9 @@ using namespace cv;
 
 /// Global Variables
 const int alpha_slider_max = 100;
+const int beta_slider_max = 100;
 int alpha_slider;
+int beta_slider;
 double alpha;
 double beta;
 bool altAccepted = false;
@@ -23,7 +25,8 @@ Mat alteredFrame;
 void on_trackbar()
 {
 	alpha = (double)(alpha_slider + alpha_slider) / alpha_slider_max;
-	beta = (1.0 - alpha);
+	//beta = (1.0 - alpha);
+	beta = (beta_slider - alpha);
 
 	if (altAccepted == false) {
 		frame.convertTo(newFrame, -1, alpha, beta);
@@ -45,6 +48,7 @@ int main(int argc, char argv[])
 
 	// Initialize values
 	alpha_slider = 50;
+	beta_slider = 0;
 
 	//get the frames rate of the video
 	double fps = vCap_Original.get(CAP_PROP_FPS);
@@ -54,10 +58,12 @@ int main(int argc, char argv[])
 
 											   // Create Trackbars
 	char TrackbarName[50];
+	char testTrackbar[50];
 	sprintf_s(TrackbarName, "Alpha x %d", alpha_slider_max);
+	sprintf_s(testTrackbar, "Beta x %d", beta_slider_max);
 
 	createTrackbar(TrackbarName, window_name, &alpha_slider, alpha_slider_max);
-
+	createTrackbar(testTrackbar, window_name, &beta_slider, beta_slider_max);
 
 	while (true)
 	{
