@@ -15,23 +15,24 @@ double alpha;
 double beta;
 bool altAccepted = false;
 String window_name = "My First Video";
+String other_window_name = "New Frame";
 VideoCapture vCap_Original("barriers.avi");
 Mat frame;
 Mat newFrame;
 Mat alteredFrame;
 
 
-
+// Adjust alpha & beta values (brightness & contrast)
 void on_trackbar()
 {
 	alpha = (double)(alpha_slider + alpha_slider) / alpha_slider_max;
 	//beta = (1.0 - alpha);
 	beta = (beta_slider - alpha);
 
-	if (altAccepted == false) {
+	if (altAccepted == false) {// While still editing brightness/ contrast.
 		frame.convertTo(newFrame, -1, alpha, beta);
 	}
-	else {
+	else {// Once user has accepted the changed. 
 		frame.convertTo(frame, -1, alpha, beta);
 	}
 }
@@ -56,20 +57,20 @@ int main(int argc, char argv[])
 
 	namedWindow(window_name, WINDOW_AUTOSIZE); //create a window
 
-											   // Create Trackbars
+	// Create Trackbars
 	char TrackbarName[50];
-	char testTrackbar[50];
-	sprintf_s(TrackbarName, "Alpha x %d", alpha_slider_max);
-	sprintf_s(testTrackbar, "Beta x %d", beta_slider_max);
+	char otherTrackbar[50];
+	sprintf_s(TrackbarName, "Alpha == %d", alpha_slider_max);
+	sprintf_s(otherTrackbar, "Beta == %d", beta_slider_max);
 
 	createTrackbar(TrackbarName, window_name, &alpha_slider, alpha_slider_max);
-	createTrackbar(testTrackbar, window_name, &beta_slider, beta_slider_max);
+	createTrackbar(otherTrackbar, window_name, &beta_slider, beta_slider_max);
 
 	while (true)
 	{
 		bool bSuccess = vCap_Original.read(frame); // read a new frame from video 
 
-		// Breaking the while loop at the end of the video
+		// Loop the video when last frame is found.
 		if (bSuccess == false)
 		{
 			cout << "Found the end of the video" << endl;
@@ -77,7 +78,7 @@ int main(int argc, char argv[])
 			continue;
 		}
 
-
+		// If user hasn't accepted the changes...
 		if (altAccepted == false) 
 		{
 			// Adjust the brightness of the video using trackbar.
@@ -85,17 +86,17 @@ int main(int argc, char argv[])
 
 			//show the frame in the created window
 			imshow(window_name, frame);
-			imshow("new frame", newFrame);
+			imshow(other_window_name, newFrame);
 		}
 
+		// If user has accepted the changes...
 		if (altAccepted == true) 
 		{
-			// Adjust the brightness of the video using trackbar.
+			// Apply adjustments to video based on changes.
 			on_trackbar();
 
-			destroyWindow("new frame");
+			destroyWindow(other_window_name);
 			
-
 			imshow(window_name, frame);
 		}
 
