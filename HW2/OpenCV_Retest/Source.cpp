@@ -4,17 +4,28 @@
 
 using namespace cv;
 
+String win_DogOriginal = "Dog Original Image";
+String win_DogBox = "Dog Box Filter Image";
+
+
 int main(int argv, char** argc)
 {
-	Mat testColour = imread("2980_2560x1440.jpg", CV_LOAD_IMAGE_COLOR);// Load image w/ color.
-	Mat testGrey = imread("2980_2560x1440.jpg", CV_LOAD_IMAGE_GRAYSCALE);// Load image as grayscale.
+	Mat inputImage = imread("dog.bmp", CV_LOAD_IMAGE_COLOR);// Load dog image.
+	Mat outputImage;
 
-	imshow("color", testColour);// Open window to show testColour image.
-	imshow("grey", testGrey);// Open window to show testGrey image.
+	// Initialize & define Size and Point objects.
+	Size size = Size(45, 45);
+	Point point = Point(-1, -1);
 
-	imwrite("outputGrey.jpg", testGrey);// Save testGrey image as outputGrey.jpg.
+	imshow(win_DogOriginal, inputImage);// Show original Dog image.
 
-	waitKey();// Have system wait until key is pressed. This is so we can see what the output is before the program terminates.
+	// Apply a Box Filter effect.
+	boxFilter(inputImage, outputImage, 50, size, point, true, BORDER_DEFAULT);
+	
+	imshow(win_DogBox, outputImage);// Show the Dog image after applying a box filter.
+	imwrite("DogBoxFilterImage.bmp", outputImage);// Save the Dog image after applying a box filter.
+
+	waitKey();
 
 	return 0;
 }
