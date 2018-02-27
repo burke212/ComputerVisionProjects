@@ -62,6 +62,24 @@ int sobelFilter() {
 	return 0;
 }
 
+int gaussFilter() {
+	Mat a = imread("bicycle.bmp", CV_LOAD_IMAGE_COLOR);// Load dog image.
+	Mat b;
+
+	if (a.empty()) {// Stop prog if image doesn't load.
+		cout << "Couldn't load image." << endl;
+		return -1;
+	}
+
+	
+
+	GaussianBlur(a, b, Size(3, 3), 0, 0, BORDER_DEFAULT);
+	imshow("gauss", b);// Show original bicycle image.
+
+	waitKey();
+
+	return 0;
+}
 
 
 int main(int argv, char** argc)
@@ -72,9 +90,14 @@ int main(int argv, char** argc)
 	// Check if 'Enter' is pressed. Triggers next filter output to show.
 	if (waitKey() == 13) {
 		sobelFilter();
+
+		if (waitKey() == 13)
+		{
+			gaussFilter();
+		}
 	}
 
-
+	
 
 	return 0;
 }
