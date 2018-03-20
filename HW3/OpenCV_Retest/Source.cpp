@@ -1,20 +1,21 @@
 // OpenCVTest.cpp : Defines the entry point for the console application.
 //Opens/ plays a video.
 #include <opencv2/opencv.hpp>
-#include <stdint.h>
+//#include <stdint.h>
 
 using namespace std;
 using namespace cv;
 
-int main()
+int main(int argv, char** argc)
 {
 	// Load the image
-	Mat src = imread("fishyfish.jpg", CV_LOAD_IMAGE_COLOR);
+	Mat src = imread("00_RECTIFY.tif", CV_LOAD_IMAGE_COLOR);
 
 	// Check if everything was fine
-	if (src.empty())
+	if (src.empty()) {
 		cout << "Couldn't load image" << endl;
 		return -1;
+	}
 	// Show source image
 	imshow("Source Image", src);
 	// Change the background from white to black, since that will help later to extract
