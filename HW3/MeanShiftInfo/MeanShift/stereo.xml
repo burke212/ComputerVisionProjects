@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<opencv_storage>
+
+
+<!--Image Segmentation: -->
+<seg_img_filename>"00_RECTIFY.tif"</seg_img_filename>
+<seg_out_filename>"00_Seg_color.tif"</seg_out_filename>
+<segment_method>1</segment_method>
+<segment_window>31</segment_window>
+
+</opencv_storage>
+
