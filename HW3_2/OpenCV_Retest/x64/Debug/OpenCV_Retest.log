@@ -1,0 +1,18 @@
+﻿  MeanShift.cpp
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(305): warning C4267: 'return': conversion from 'size_t' to 'uchar', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(473): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(473): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(580): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(580): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(668): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(668): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(689): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(689): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(1009): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(1009): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\meanshift.cpp(1016): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+d:\other\github folder\computervisionprojects\hw3\meanshiftinfo\meanshift\main.cpp(24): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Loader.cpp
+  Generating Code...
+  OpenCV_Retest.vcxproj -> D:\Other\GitHub Folder\ComputerVisionProjects\HW3_2\x64\Debug\OpenCV_Retest.exe

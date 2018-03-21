@@ -1,0 +1,7 @@
+2/6
+Video now has a slider. 
+Slider doens't do anything currently.
+
+2/7
+Video plays in a loop.
+2 windows now display: the original w/ the trackbar, a copy of the original video. Adjusting the trackbar brightens the new window's video. 
