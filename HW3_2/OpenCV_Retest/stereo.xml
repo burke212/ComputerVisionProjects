@@ -6,7 +6,7 @@
 <!--Image Segmentation: -->
 <seg_img_filename>"00_RECTIFY.tif"</seg_img_filename>
 <seg_out_filename>"00_Seg_color.tif"</seg_out_filename>
-<segment_method>3</segment_method>
+<segment_method>2</segment_method>
 <segment_window>31</segment_window>
 
 </opencv_storage>

@@ -148,17 +148,13 @@ int main(int argv, char** argc)
 
 	// Create binary image from source image
 	Mat bw;
-	//Mat bw1;
 	cvtColor(src, bw, CV_BGR2GRAY);
-	//cvtColor(src, bw1, CV_BGR2GRAY);
-	threshold(bw, bw, 40, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
-	//threshold(bw, bw1, 100, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+	threshold(bw, bw, 40, 255, CV_THRESH_BINARY);// | CV_THRESH_OTSU
 	imshow("Binary Image small", bw);
-	//imshow("Binary Image large", bw1);
 	
 	// Perform the distance transform algorithm
 	Mat dist;
-	distanceTransform(bw, dist, CV_DIST_L2, 3);
+	distanceTransform(bw, dist, CV_DIST_L2, 3);//DIST_LABEL_PIXEL
 	// Normalize the distance image for range = {0.0, 1.0}
 	// so we can visualize and threshold it
 	normalize(dist, dist, 0, 1., NORM_MINMAX);
