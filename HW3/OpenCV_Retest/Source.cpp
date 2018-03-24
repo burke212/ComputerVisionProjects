@@ -9,7 +9,7 @@ using namespace cv;
 int main(int argv, char** argc)
 {
 	// Load the image
-	Mat src = imread("set2Seq1_L-150x150.png", CV_LOAD_IMAGE_COLOR);
+	Mat src = imread("blackWhite2.png", CV_LOAD_IMAGE_COLOR);
 
 	// Check if everything was fine
 	if (src.empty()) {
@@ -149,12 +149,12 @@ int main(int argv, char** argc)
 	// Create binary image from source image
 	Mat bw;
 	cvtColor(src, bw, CV_BGR2GRAY);
-	threshold(bw, bw, 40, 255, CV_THRESH_BINARY);// | CV_THRESH_OTSU
+	threshold(bw, bw, 40, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);// CV_THRESH_BINARY | CV_THRESH_OTSU
 	imshow("Binary Image small", bw);
 	
 	// Perform the distance transform algorithm
 	Mat dist;
-	distanceTransform(bw, dist, CV_DIST_L2, 3);//DIST_LABEL_PIXEL
+	distanceTransform(bw, dist, CV_DIST_L2, 3);// DIST_LABEL_PIXEL	CV_DIST_L2
 	// Normalize the distance image for range = {0.0, 1.0}
 	// so we can visualize and threshold it
 	normalize(dist, dist, 0, 1., NORM_MINMAX);
