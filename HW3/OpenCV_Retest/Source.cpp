@@ -9,7 +9,11 @@ using namespace cv;
 int main(int argv, char** argc)
 {
 	// Load the image
-	Mat src = imread("blackWhite2.png", CV_LOAD_IMAGE_COLOR);
+	Mat src = imread("coloredImage1.tif", CV_LOAD_IMAGE_COLOR);
+	//Mat src = imread("coloredImage2.png", CV_LOAD_IMAGE_COLOR);
+	//Mat src = imread("blackWhite1.tif", CV_LOAD_IMAGE_COLOR);
+	//Mat src = imread("blackWhite2.png", CV_LOAD_IMAGE_COLOR);
+	
 
 	// Check if everything was fine
 	if (src.empty()) {
@@ -23,7 +27,8 @@ int main(int argv, char** argc)
 	// Create binary image from source image
 	Mat bw;
 	cvtColor(src, bw, CV_BGR2GRAY);
-	threshold(bw, bw, 40, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);// CV_THRESH_BINARY | CV_THRESH_OTSU
+	//threshold(bw, bw, 40, 255, CV_THRESH_OTSU);// CV_THRESH_BINARY | CV_THRESH_OTSU
+	threshold(bw, bw, 157, 225, CV_THRESH_OTSU);// CV_THRESH_BINARY | CV_THRESH_OTSU
 	imshow("Binary Image small", bw);
 	
 	// Perform the distance transform algorithm
@@ -31,7 +36,7 @@ int main(int argv, char** argc)
 	distanceTransform(bw, dist, CV_DIST_L2, 3);// DIST_LABEL_PIXEL	CV_DIST_L2
 	// Normalize the distance image for range = {0.0, 1.0}
 	// so we can visualize and threshold it
-	normalize(dist, dist, 0, 1., NORM_MINMAX);
+	normalize(dist, dist, 0, 157, NORM_MINMAX); //<<=========================================================================
 	imshow("Distance Transform Image", dist);
 
 	// Threshold to obtain the peaks
@@ -48,7 +53,7 @@ int main(int argv, char** argc)
 	dist.convertTo(dist_8u, CV_8U);
 	// Find total markers
 	vector<vector<Point> > contours;
-	findContours(dist_8u, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+	findContours(dist_8u, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE); 
 	// Create the marker image for the watershed algorithm
 	Mat markers = Mat::zeros(dist.size(), CV_32SC1);
 	// Draw the foreground markers
@@ -59,13 +64,18 @@ int main(int argv, char** argc)
 	imshow("Markers", markers * 10000);
 
 	// Perform the watershed algorithm
+	//===============================================================================================
 	watershed(src, markers);
+	//imshow("Markers_post_watershed", markers);
 	Mat mark = Mat::zeros(markers.size(), CV_8UC1);
 	markers.convertTo(mark, CV_8UC1);
+	//imshow("Markers_post_convertTo", markers);
+	//imshow("Mark_post_convertTo", mark);
 	bitwise_not(mark, mark);
 	imshow("Markers_v2", mark); // uncomment this if you want to see how the mark
 	// image looks like at that point
 	// Generate random colors
+	//===============================================================================================
 	vector<Vec3b> colors;
 	for (size_t i = 0; i < contours.size(); i++)
 	{
