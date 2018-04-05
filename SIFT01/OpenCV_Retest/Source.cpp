@@ -33,7 +33,7 @@ void applyGuassianBlur(Mat source, Size kern) {
 }
 
 void calculateOctave1(Mat source) {
-	Mat dest;
+	Mat dest=source;
 	Size kern = Size(3, 3);
 
 	// 4 Octaves
@@ -41,21 +41,30 @@ void calculateOctave1(Mat source) {
 		String octave = "Octave ";
 		octave = octave + to_string(i);// make string for each Octave, i.e. "Octave 1", "Octave 2"...
 		
-		
-		
 		// 5 layers/ images per octave
 		for (int j = 1; j < 6; j++) {
 			String layer = "Layer ";
-			layer = layer + to_string(j);// make string for each Octave, i.e. "layer 1", "layer 2"...
+			layer = octave + layer + to_string(j);// make string for each Octave, i.e. "layer 1", "layer 2"...
 
-			GaussianBlur(source, dest, kern, 0, 0, BORDER_DEFAULT);
+			GaussianBlur(dest, dest, kern, 0, 0, BORDER_DEFAULT);
+			cout << "width: " << dest.rows << endl;
+			cout << "height: " << dest.cols << endl;
+			//namedWindow(layer, WINDOW_NORMAL);// Keeps window sizes the same as the image. Stretches image size to user controlled size.
 			imshow(layer, dest);
 
-			kern = Size(j+2, j+2);//3 5 7 9 12 |  356
+			kern = kern + Size(2,2);// Increase the kernel size to 3 5 7 9 11
 		}
+
+		resize(dest, dest, Size(dest.cols*0.5, dest.rows*0.5), 0.5, 0.5); // Resize the image | half the image size. 
+		cout << "Itration " << i << endl;
+		cout << "	Image width: " << dest.rows << endl;
+		cout << "	Image height: " << dest.cols << endl;
 	}
 
+
+	waitKey(0);
 }
+
 
 int main(int argc, char argv[])
 {
@@ -63,7 +72,9 @@ int main(int argc, char argv[])
 	showOriginalImg();
 	
 	// Apply 3x3 gauss on original image
-	applyGuassianBlur(original_img, kern3x3);
+	//applyGuassianBlur(original_img, kern3x3);
+
+	calculateOctave1(original_img);
 
 	return 0;
 }
