@@ -24,41 +24,45 @@ void showOriginalImg() {
 }
 
 
-void applyGuassianBlur(Mat source, Size kern) {
-	Mat dest;
+Mat applyGuassianBlur(Mat source, Size kern) {
+	Mat temp;
 
-	GaussianBlur(source, dest, kern, 0, 0, BORDER_DEFAULT);// Apply gaussian blur to image. 
-	imshow("Gaussian", dest);
-	waitKey(0);
+	GaussianBlur(source, temp, kern, 0, 0, BORDER_DEFAULT);// Apply gaussian blur to image. 
+	//imshow("Gaussian", dest);
+	//waitKey(0);
+	return temp;
 }
 
 void calculateOctave1(Mat source) {
 	Mat dest=source;
+	Mat temp;
 	Size kern = Size(3, 3);
 
 	// 4 Octaves
 	for (int i = 1; i < 5; i++) {
-		String octave = "Octave ";
+		String octave = "Octave";
 		octave = octave + to_string(i);// make string for each Octave, i.e. "Octave 1", "Octave 2"...
 		
 		// 5 layers/ images per octave
 		for (int j = 1; j < 6; j++) {
-			String layer = "Layer ";
-			layer = octave + layer + to_string(j);// make string for each Octave, i.e. "layer 1", "layer 2"...
+			String layer = "Layer";
+			layer = octave + "_"+ layer + to_string(j);// make string for each Octave, i.e. "layer 1", "layer 2"...
 
-			GaussianBlur(dest, dest, kern, 0, 0, BORDER_DEFAULT);
-			cout << "width: " << dest.rows << endl;
-			cout << "height: " << dest.cols << endl;
+			temp = applyGuassianBlur(dest, kern);
+			//GaussianBlur(dest, dest, kern, 0, 0, BORDER_DEFAULT);
+			//cout << "Kernel: " << kern << endl;
 			//namedWindow(layer, WINDOW_NORMAL);// Keeps window sizes the same as the image. Stretches image size to user controlled size.
-			imshow(layer, dest);
+			
+			//imshow(layer, dest);
+			imshow(layer, temp);
+			imwrite(layer+".png", temp);
 
 			kern = kern + Size(2,2);// Increase the kernel size to 3 5 7 9 11
 		}
 
+		kern = Size(3, 3);// Reset kernel size @ beginning of each octave.
+
 		resize(dest, dest, Size(dest.cols*0.5, dest.rows*0.5), 0.5, 0.5); // Resize the image | half the image size. 
-		cout << "Itration " << i << endl;
-		cout << "	Image width: " << dest.rows << endl;
-		cout << "	Image height: " << dest.cols << endl;
 	}
 
 
