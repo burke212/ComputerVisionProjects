@@ -108,6 +108,46 @@ int calulateDoG() {
 	return 0;
 }
 
+void findMax() {
+	String DOG;
+	double minVal; double maxVal; Point minLoc; Point maxLoc;
+	int count = 1;
+
+	for (int i = 1; i < 5; i++) {
+		for (int j = 1; j < 5; j++) {
+			String octave = "Octave" + to_string(i);// make string for each Octave, i.e. "Octave 1", "Octave 2"...
+			String layer = octave + "_" + "Layer";// +to_string(j);// make string for each Octave, i.e. "layer 1", "layer 2"...
+
+			DOG = "DoG/DOG" + to_string(i) + "_" + layer + to_string(j) + ".png";// "DoG"i"_Octave"i"_Layer"j
+
+			Mat img1 = imread(DOG, CV_LOAD_IMAGE_COLOR);// i.e. "Octave"i_"Layer"j
+			//Mat img2 = imread(DOG, CV_LOAD_IMAGE_COLOR);// i.e. "Octave"i_"Layer"j+1
+			
+			// Validate image isn't empty
+			if (img1.empty()) {
+				cout << "Can't load img1";
+				waitKey(0);
+				//	return -1;
+			}
+
+			// Validate image isn't empty
+			//if (img2.empty()) {
+			//	cout << "Can't load img2";
+			//	waitKey(0);
+			//	//	return -1;
+			//}
+
+			minMaxLoc(original_img, &minVal, &maxVal);
+			cout << "Iteration: " << count << endl 
+				<< "	minVal: " << minVal << endl
+				<< "	maxVal: " << maxVal << endl
+				<< "	minLoc: " << minLoc << endl
+				<< "	maxLoc: " << maxLoc << endl;
+			count++;
+		}
+	}
+	waitKey(0);
+}
 
 int main(int argc, char argv[])
 {
@@ -120,6 +160,8 @@ int main(int argc, char argv[])
 	calculateOctave1(original_img);
 
 	calulateDoG();
+
+	findMax();
 
 	return 0;
 }
