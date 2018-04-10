@@ -112,6 +112,8 @@ void findMax() {
 	String DOG;
 	double minVal; double maxVal; Point minLoc; Point maxLoc;
 	int count = 1;
+	vector<Point> max_points;
+	vector<Point> min_points;
 
 	for (int i = 1; i < 5; i++) {
 		for (int j = 1; j < 5; j++) {
@@ -122,6 +124,8 @@ void findMax() {
 
 			Mat img1 = imread(DOG, CV_LOAD_IMAGE_COLOR);// i.e. "Octave"i_"Layer"j
 			//Mat img2 = imread(DOG, CV_LOAD_IMAGE_COLOR);// i.e. "Octave"i_"Layer"j+1
+			Mat max_img1 = Mat::zeros(img1.size(), CV_64FC1);
+			Mat min_img1 = Mat::zeros(img1.size(), CV_64FC1);
 			
 			// Validate image isn't empty
 			if (img1.empty()) {
@@ -137,12 +141,21 @@ void findMax() {
 			//	//	return -1;
 			//}
 
-			minMaxLoc(original_img, &minVal, &maxVal);
-			cout << "Iteration: " << count << endl 
-				<< "	minVal: " << minVal << endl
-				<< "	maxVal: " << maxVal << endl
-				<< "	minLoc: " << minLoc << endl
-				<< "	maxLoc: " << maxLoc << endl;
+			minMaxLoc(img1, &minVal, &maxVal);// Find max & min value in image
+
+			if (img1.at<Point>(i,j) == maxVal) {
+				max_points.push_back(Point(i, j));
+				cout << "Pushed back: " << i << ", " << j << endl;
+			}
+			
+
+			/*if (img1.at<uchar>(Point(i, j)) == minVal) {
+				min_points.pushback(Point(i,j));
+			}*/
+
+			cout << "iteration: " << count << endl 
+				<< "	minval: " << minVal << endl
+				<< "	maxval: " << maxVal << endl;
 			count++;
 		}
 	}
