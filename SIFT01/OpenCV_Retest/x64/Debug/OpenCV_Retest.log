@@ -1,3 +1,1 @@
-﻿  Source.cpp
-d:\other\github folder\computervisionprojects\sift01\opencv_retest\source.cpp(65): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  OpenCV_Retest.vcxproj -> D:\Other\GitHub Folder\ComputerVisionProjects\SIFT01\x64\Debug\OpenCV_Retest.exe
+﻿  OpenCV_Retest.vcxproj -> D:\Other\GitHub Folder\ComputerVisionProjects\SIFT01\x64\Debug\OpenCV_Retest.exe

@@ -36,7 +36,7 @@ int main(int argv, char** argc)
 	distanceTransform(bw, dist, CV_DIST_L2, 3);// DIST_LABEL_PIXEL	CV_DIST_L2
 	// Normalize the distance image for range = {0.0, 1.0}
 	// so we can visualize and threshold it
-	normalize(dist, dist, 0, 157, NORM_MINMAX); //<<=========================================================================
+	normalize(dist, dist, 0, 97, NORM_MINMAX); //<<=========================================================================
 	imshow("Distance Transform Image", dist);
 
 	// Threshold to obtain the peaks
